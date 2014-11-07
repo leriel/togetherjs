@@ -182,6 +182,46 @@ define(["require", "jquery", "util", "session", "templates", "templating", "link
       }
     });
 
+    TogetherJS.config.track("disableChat", function (hide, previous) {
+      if (hide && ! previous) {
+        ui.container.find("#togetherjs-chat-button").hide();
+        adjustDockSize(-1);
+      } else if ((! hide) && previous) {
+        ui.container.find("#togetherjs-chat-button").show();
+        adjustDockSize(1);
+      }
+    });
+
+    TogetherJS.config.track("disableInvite", function (hide, previous) {
+      if (hide && ! previous) {
+        ui.container.find("#togetherjs-share-button").hide();
+        adjustDockSize(-1);
+      } else if ((! hide) && previous) {
+        ui.container.find("#togetherjs-share-button").show();
+        adjustDockSize(1);
+      }
+    });
+
+    TogetherJS.config.track("enableEndButton", function (show, previous) {
+      if (show && ! previous) {
+        ui.container.find("#togetherjs-end-button").show();
+        adjustDockSize(1);
+      } else if ((! show) && previous) {
+        ui.container.find("#togetherjs-end-button").hide();
+        adjustDockSize(-1);
+      }
+    });
+
+    TogetherJS.config.track("disableProfileButton", function (hide, previous) {
+      if (hide && ! previous) {
+        ui.container.find("#togetherjs-profile-button").hide();
+        adjustDockSize(-1);
+      } else if ((! hide) && previous) {
+        ui.container.find("#togetherjs-profile-button").show();
+        adjustDockSize(1);
+      }
+    });
+
   };
 
   // After prepareUI, this actually makes the interface live.  We have
@@ -400,9 +440,11 @@ define(["require", "jquery", "util", "session", "templates", "templating", "link
       });
 
       // toggle the profile button
-      $("#togetherjs-profile-button").click(function () {
-        windowing.toggle("#togetherjs-menu-window");
-      });
+      if(!TogetherJS.config.get('disableProfileButton')) {
+        $("#togetherjs-profile-button").click(function () {
+          windowing.toggle("#togetherjs-menu-window");
+        });
+      }
 
       // $("body").append( "\x3cdiv class='overlay' style='position: absolute; top: 0; left: -2px; background-color: rgba(0,0,0,0.5); width: 200%; height: 400%; z-index: 1000; margin: 0px'>\x3c/div>" );
 
@@ -424,19 +466,23 @@ define(["require", "jquery", "util", "session", "templates", "templating", "link
       });
     }
 
-    $("#togetherjs-share-button").click(function () {
-      windowing.toggle("#togetherjs-share");
-    });
+    if(!TogetherJS.config.get('disableInvite')) {
+      $("#togetherjs-share-button").click(function () {
+        windowing.toggle("#togetherjs-share");
+      });
+    }
 
-    $("#togetherjs-profile-button").click(function (event) {
-      if ($.browser.mobile) {
-        windowing.show("#togetherjs-menu-window");
+    if(!TogetherJS.config.get('disableProfileButton')) {
+      $("#togetherjs-profile-button").click(function (event) {
+        if ($.browser.mobile) {
+          windowing.show("#togetherjs-menu-window");
+          return false;
+        }
+        toggleMenu();
+        event.stopPropagation();
         return false;
-      }
-      toggleMenu();
-      event.stopPropagation();
-      return false;
-    });
+      });
+    }
 
     $("#togetherjs-menu-feedback, #togetherjs-menu-feedback-button").click(function(){
       windowing.hide();
@@ -485,7 +531,7 @@ define(["require", "jquery", "util", "session", "templates", "templating", "link
       windowing.show("#togetherjs-avatar-edit");
     });
 
-    $("#togetherjs-menu-end, #togetherjs-menu-end-button").click(function () {
+    $("#togetherjs-menu-end, #togetherjs-menu-end-button, #togetherjs-end-button").click(function () {
       hideMenu();
       windowing.show("#togetherjs-confirm-end");
     });
@@ -535,9 +581,11 @@ define(["require", "jquery", "util", "session", "templates", "templating", "link
       $("#togetherjs-pick-color").append(el);
     });
 
-    $("#togetherjs-chat-button").click(function () {
-      windowing.toggle("#togetherjs-chat");
-    });
+    if(!TogetherJS.config.get('disableChat')) {
+      $("#togetherjs-chat-button").click(function () {
+        windowing.toggle("#togetherjs-chat");
+      });
+    }
 
     session.on("display-window", function (id, element) {
       if (id == "togetherjs-chat") {
@@ -789,8 +837,8 @@ define(["require", "jquery", "util", "session", "templates", "templating", "link
     assert(buttons && Math.floor(buttons) == buttons);
     var iface = $("#togetherjs-dock");
     var newHeight = iface.height() + (BUTTON_HEIGHT * buttons);
-    assert(newHeight >= BUTTON_HEIGHT * 3, "Height went too low (", newHeight,
-           "), should never be less than 3 buttons high (", BUTTON_HEIGHT * 3, ")");
+    assert(newHeight >= BUTTON_HEIGHT * 1, "Height went too low (", newHeight,
+           "), should never be less than 1 buttons high (", BUTTON_HEIGHT * 1, ")");
     iface.css({
       height: newHeight + "px"
     });

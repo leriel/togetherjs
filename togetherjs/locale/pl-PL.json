@@ -37,7 +37,7 @@
   "Internet Explorer <a href='https://github.com/mozilla/togetherjs/wiki/Supported-Browsers#internet-explorer'> is not supported</a> and won't be supported in the near term, please use Firefox or Chrome.": "Internet Explorer <a href='https://github.com/mozilla/togetherjs/wiki/Supported-Browsers#internet-explorer'> nie jest wspierany</a> i nie będzie w najbliższej przyszłości - użyj proszę przeglądarki Firefox lub Chrome.",
   "Invite a friend": "Zaproś znajomego",
   "Invite anyone": "Zaproś kogokolwiek",
-  "is on the same page as you.": "na tej samej stronie co Ty.",
+  "is on the same page as you.": "jest na tej samej stronie co Ty.",
   "Join them": "Dołącz",
   "Join TOOL_NAME session?": "Dołączyć do sesji TOOL_NAME?",
   "joined the session.": "dołączył do sesji.",
@@ -85,5 +85,7 @@
   "You": "Ty",
   "you": "Cię",
   "You're using TOOL_NAME!": "Używasz TOOL_NAME!",
-  "Your friend has asked you to join their TOOL_SITE_LINK browser session to collaborate in real-time!": "Twój znajomy zaprosił Cię do współpracy w czasie rzeczywistym na stronie TOOL_SITE_LINK!"
+  "Your friend has asked you to join their TOOL_SITE_LINK browser session to collaborate in real-time!": "Twój znajomy zaprosił Cię do współpracy w czasie rzeczywistym na stronie TOOL_SITE_LINK!",
+  "Active": "Aktywny",
+  "Inactive": "Nieaktywny"
 }

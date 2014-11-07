@@ -65,7 +65,7 @@
     // are considered to be at completely different URLs
     includeHashInUrl: false,
     // When true, the WebRTC-based mic/chat will be disabled
-    disableWebRTC: false,
+    disableWebRTC: true,
     // When true, youTube videos will synchronize
     youtube: true,
     // Ignores the following console messages, disables all messages if set to true
@@ -73,13 +73,18 @@
     // Ignores the following forms (will ignore all forms if set to true):
     ignoreForms: [":password"],
     // When undefined, attempts to use the browser's language
-    lang: undefined,
-    fallbackLang: "en-US"
+    lang: "pl-PL",
+    fallbackLang: "en-US",
+    disableChat: true,
+    disableIntro: true,
+    disableInvite: true,
+    enableEndButton: true,
+    disableProfileButton: false
   };
 
   var styleSheet = "/togetherjs/togetherjs.css";
 
-  var baseUrl = "__baseUrl__";
+  var baseUrl = "http://localhost:8080/";
   if (baseUrl == "__" + "baseUrl__") {
     // Reset the variable if it doesn't get substituted
     baseUrl = "";
