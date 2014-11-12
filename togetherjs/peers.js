@@ -144,7 +144,8 @@ define(["util", "session", "storage", "require", "templates"], function (util, s
       }
       // FIXME: I can't decide if this is the only time we need to emit
       // this message (and not .update() or other methods)
-      if (this.following) {
+      if (this.following ||
+        (TogetherJS.config.get('followMaster') && session.isClient)) {
         session.emit("follow-peer", this);
       }
     },

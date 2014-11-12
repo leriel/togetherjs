@@ -79,7 +79,8 @@
     disableIntro: true,
     disableInvite: true,
     enableEndButton: true,
-    disableProfileButton: false
+    disableProfileButton: true,
+    followMaster: true
   };
 
   var styleSheet = "/togetherjs/togetherjs.css";

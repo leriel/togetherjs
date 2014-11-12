@@ -5,6 +5,8 @@
 define(["jquery"], function ($) {
   // This isn't really a "module" since it just patches jQuery itself
 
+  var zIndex = 16777261;
+
   // FIX ME Animations TO DO
   // walkthrough animations go here
   // animate participant cursor and box popping in when they enter the session
@@ -72,14 +74,14 @@ define(["jquery"], function ($) {
         this.css({
           left: "0px",
           opacity: 1,
-          "zIndex": 8888
+          "zIndex": zIndex
         });
 
         //starting position for arrow
         $('#togetherjs-window-pointer-right').css({
           left: "+=74px",
           opacity: 1,
-          "zIndex": 8888
+          "zIndex": zIndex
         });
 
         //animate arrow out
@@ -121,14 +123,14 @@ define(["jquery"], function ($) {
       this.css({
         left: "+=74px",
         opacity: 1,
-        "zIndex": 8888
+        "zIndex": zIndex
       });
 
       //starting position for arrow
       $('#togetherjs-window-pointer-right').css({
         left: "+=74px",
         opacity: 1,
-        "zIndex": 8888
+        "zIndex": zIndex
       });
 
       //animate arrow out
@@ -173,7 +175,7 @@ define(["jquery"], function ($) {
       //top: "240px",
       left: "+=74px",
       opacity: 0,
-      "zIndex": 8888
+      "zIndex": zIndex
     });
     return this.animate({
       "left": "-=74px",
