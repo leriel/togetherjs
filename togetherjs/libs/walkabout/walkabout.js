@@ -1488,7 +1488,7 @@ Walkabout.UI = Walkabout.Class({
   },
 
   styles: {
-    panel: "color: #000; background-color: #ffc; border: 3px outset #aa9; border-radius: 4px; position: fixed; top: 0.3em; right: 0.3em; padding: 0.7em; width: 20%; z-index: 10000; font-family: sans-serif;",
+    panel: "color: #000; background-color: #ffc; border: 3px outset #aa9; border-radius: 4px; position: fixed; top: 0.3em; right: 0.3em; padding: 0.7em; width: 20%; z-index: 16777261; font-family: sans-serif;",
     start: "color: #000; background-color: #eee; border: 2px outset #999; border-radius: 2px; padding: 4px; margin-right: 2px;",
     close: "cursor: pointer; float: right;",
     header: "font-size: 110%; font-weight: bold; border-bottom: 1px solid #aa9; margin-bottom: 6px;",

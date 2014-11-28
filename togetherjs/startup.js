@@ -90,9 +90,10 @@ define(["util", "require", "jquery", "windowing", "storage"], function (util, re
 
     sessionIntro: function (next) {
       // if ((! session.isClient) || ! session.firstRun) {
-      //   next();
-      //   return;
-      // }
+      if (! session.firstRun) {
+        next();
+        return;
+      }
       TogetherJS.config.close("suppressJoinConfirmation");
       if (TogetherJS.config.get("suppressJoinConfirmation")) {
         next();

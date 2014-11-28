@@ -3,7 +3,7 @@
     width:800;
     height:400px;
   }
-  
+
   .ellipse {
     position:absolute;
     opacity:0;
@@ -42,7 +42,7 @@
     opacity:0;
     border-radius:4px;
   }
-  
+
   #notification3 {
     width:300px;
     height:100px;
@@ -60,7 +60,7 @@
     top:160px;
     width:60px;
     height:300px;
-    z-index:9999;
+    z-index:16777261;
     background:#999;
     border-radius:4px;
   }
@@ -96,7 +96,7 @@
     opacity:0;
     font-size:12px;
   }
-  
+
   #notification-transform {
     width:300px;
     height:200px;
@@ -105,7 +105,7 @@
     -webkit-transform: perspective( 100px ) rotateX( 45deg );*/
             transform: perspective( 100px ) rotateX( 45deg );
   }
-  
+
   html {
       -webkit-transform-style: preserve-3d;
       -webkit-font-smoothing: antialiased !important;
