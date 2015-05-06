@@ -10,9 +10,11 @@ if ( process.env.NEW_RELIC_HOME ) {
 var SAMPLE_STATS_INTERVAL = 60*1000; // 1 minute
 var SAMPLE_LOAD_INTERVAL = 5*60*1000; // 5 minutes
 var EMPTY_ROOM_LOG_TIMEOUT = 3*60*1000; // 3 minutes
+var WEBSOCKET_COMPAT = true;
 
-var WebSocketServer = require('websocket').server;
-var WebSocketRouter = require('websocket').router;
+var WebSocketServer = WEBSOCKET_COMPAT ?
+  require("./websocket-compat").server :
+  require("websocket").server;
 var http = require('http');
 var parseUrl = require('url').parse;
 var fs = require('fs');
@@ -111,7 +113,7 @@ var server = http.createServer(function(request, response) {
     response.end("OK " + load.connections + " connections " +
                  load.sessions + " sessions; " +
                  load.solo + " are single-user and " +
-                 load.empty + " not counted because they are empty");
+                 (load.sessions - load.solo) + " active sessions");
   } else if (url.pathname == '/server-source') {
     response.writeHead(200, {"Content-Type": "text/plain"});
     response.end(thisSource);
@@ -350,7 +352,9 @@ setInterval(function () {
 }, SAMPLE_STATS_INTERVAL);
 
 setInterval(function () {
-  logger.info("LOAD", JSON.stringify(getLoad()));
+  var load = getLoad();
+  load.time = Date.now();
+  logger.info("LOAD", JSON.stringify(load));
 }, SAMPLE_LOAD_INTERVAL);
 
 function getLoad() {
@@ -405,18 +409,19 @@ if (require.main == module) {
       .describe("port", "The port to server on (default $HUB_SERVER_PORT, $PORT, $VCAP_APP_PORT, or 8080")
       .describe("host", "The interface to serve on (default $HUB_SERVER_HOST, $HOST, $VCAP_APP_HOST, 127.0.0.1).  Use 0.0.0.0 to make it public")
       .describe("log-level", "The level of logging to do, from 0 (very verbose) to 5 (nothing) (default $LOG_LEVEL or 0)")
-      .describe("log", "A file to log to (default stdout)")
+      .describe("log", "A file to log to (default $LOG_FILE or stdout)")
       .describe("stdout", "Log to both stdout and the log file");
   var port = ops.argv.port || process.env.HUB_SERVER_PORT || process.env.VCAP_APP_PORT ||
       process.env.PORT || 8080;
   var host = ops.argv.host || process.env.HUB_SERVER_HOST || process.env.VCAP_APP_HOST ||
       process.env.HOST || '127.0.0.1';
-  var logLevel = 0;
-  var stdout = ops.argv.stdout || !ops.argv.log;
+  var logLevel = process.env.LOG_LEVEL || 0;
+  var logFile = process.env.LOG_FILE || ops.argv.log;
+  var stdout = ops.argv.stdout || !logFile;
   if (ops.argv['log-level']) {
     logLevel = parseInt(ops.argv['log-level'], 10);
   }
-  logger = new Logger(logLevel, ops.argv.log, stdout);
+  logger = new Logger(logLevel, logFile, stdout);
   if (ops.argv.h || ops.argv.help) {
     console.log(ops.help());
     process.exit();

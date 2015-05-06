@@ -22,7 +22,7 @@ define(["jquery", "ui", "util", "session", "elementFinder", "tinycolor", "eventM
     } else {
       // FIXME: This should be caught even before the cursor-update message,
       // when the peer goes to another URL
-      Cursor.getClient(msg.clientId).hideOtherUrl(msg);
+      Cursor.getClient(msg.clientId).hideOtherUrl();
     }
   });
 
@@ -118,7 +118,7 @@ define(["jquery", "ui", "util", "session", "elementFinder", "tinycolor", "eventM
       this.setPosition(top, left);
     },
 
-    hideOtherUrl: function (msg) {
+    hideOtherUrl: function () {
       if (this.atOtherUrl) {
         return;
       }
@@ -420,16 +420,12 @@ define(["jquery", "ui", "util", "session", "elementFinder", "tinycolor", "eventM
       if (! TogetherJS.running) {
         // This can end up running right after TogetherJS has been closed, often
         // because TogetherJS was closed with a click...
+        return;
       }
       var element = event.target;
       if (element == document.documentElement) {
         // For some reason clicking on <body> gives the <html> element here
         element = document.body;
-      }
-      if (! TogetherJS.running) {
-        // This can end up running right after TogetherJS has been closed, often
-        // because TogetherJS was closed with a click...
-        return;
       }
       if (elementFinder.ignoreElement(element)) {
         return;
@@ -440,6 +436,14 @@ define(["jquery", "ui", "util", "session", "elementFinder", "tinycolor", "eventM
         return;
       }
 
+      var dontShowClicks = TogetherJS.config.get("dontShowClicks");
+      var cloneClicks = TogetherJS.config.get("cloneClicks");
+      // If you dont want to clone the click for this element
+      // and you dont want to show the click for this element or you dont want to show any clicks
+      // then return to avoid sending a useless click
+      if ((! util.matchElement(element, cloneClicks)) && util.matchElement(element, dontShowClicks)) {
+        return;
+      }
       var location = elementFinder.elementLocation(element);
       var offset = $(element).offset();
       var offsetX = event.pageX - offset.left;
@@ -450,6 +454,9 @@ define(["jquery", "ui", "util", "session", "elementFinder", "tinycolor", "eventM
         offsetX: offsetX,
         offsetY: offsetY
       });
+      if (util.matchElement(element, dontShowClicks)) {
+        return;
+      }
       displayClick({top: event.pageY, left: event.pageX}, peers.Self.color);
     });
   }
@@ -467,16 +474,19 @@ define(["jquery", "ui", "util", "session", "elementFinder", "tinycolor", "eventM
       return;
     }
     Cursor.getClient(pos.clientId).updatePosition(pos);
-    var element = templating.clone("click");
     var target = $(elementFinder.findElement(pos.element));
     var offset = target.offset();
     var top = offset.top + pos.offsetY;
     var left = offset.left + pos.offsetX;
-    displayClick({top: top, left: left}, pos.peer.color);
-    var cloneClicks = TogetherJS.getConfig("cloneClicks");
-    if (cloneClicks && target.is(cloneClicks)) {
+    var cloneClicks = TogetherJS.config.get("cloneClicks");
+    if (util.matchElement(target, cloneClicks)) {
       eventMaker.performClick(target);
     }
+    var dontShowClicks = TogetherJS.config.get("dontShowClicks");
+    if (util.matchElement(target, dontShowClicks)) {
+      return;
+    }
+    displayClick({top: top, left: left}, pos.peer.color);
   });
 
   function displayClick(pos, color) {

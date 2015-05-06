@@ -24,17 +24,17 @@ Green
 ----------------------------------------------- */
 @font-face {
   font-family: openSansRegular;
-  src: url('../fonts/OpenSans-Regular.ttf');
+  src: url('../../togetherjs/fonts/OpenSans-Regular.ttf');
 }
 
 @font-face {
   font-family: openSansLight;
-  src: url('../fonts/OpenSans-Light.ttf');
+  src: url('../../togetherjs/fonts/OpenSans-Light.ttf');
 }
 
 @font-face {
   font-family: openSansBold;
-  src: url('../fonts/OpenSans-Bold.ttf');
+  src: url('../../togetherjs/fonts/OpenSans-Bold.ttf');
 }
 
 body {
@@ -149,6 +149,27 @@ h5 {
   line-height: 16px;
 }
 
+.form-control:focus {
+  border: 1px solid #2aa08b;
+  box-shadow: none;
+}
+
+/* =Tabzilla
+----------------------------------------------- */
+#tabzilla-panel,
+#tabzilla-panel *,
+#tabzilla-panel *:before,
+#tabzilla-panel *:after {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+#tabzilla-panel a {
+  font-size: 11px;
+  line-height: 12px;
+}
+
+
 /* =Header
 ----------------------------------------------- */
 
@@ -226,8 +247,10 @@ h5 {
   opacity: 1;
 }
 
-.navbar-inverse {
-  border-color: rgba(0,0,0,0);
+.navbar {
+  border: 0;
+  border-radius: 0;
+  margin-bottom: 0;
 }
 
 .main-header .main-nav {
@@ -238,10 +261,15 @@ h5 {
   width: 44px;
   background: rgb(72, 72, 72);
   margin-top: 13px;
+  border: 1px solid #282a2c;
 }
 
 .main-header.navbar-inverse .navbar-collapse {
   border-color: #000;
+}
+
+.navbar-collapse {
+  border-top: 1px solid #282a2c;
 }
 
 
@@ -251,7 +279,7 @@ h5 {
 #hero {
   background: url('../images/bg@2x.png') 50% 0 no-repeat fixed;
   background-size: 2042px 606px;
-	margin: 14px auto;
+	margin: 0px auto;
   width: 100%;
   //max-width: 1920px;
   position: relative;
@@ -520,6 +548,10 @@ h5 {
   background: #efefef;
 }
 
+#main-section #customers p.text-center {
+  margin: 0px 15%;
+}
+
 /* =features section
 ----------------------------------------------- */
 
@@ -720,15 +752,15 @@ h5 {
 
 /* Extra small devices (phones, up to 480px) */
 @media (max-width: 480px) {
-  
+
   #features .media > .pull-left {
     margin-top: 20px;
   }
-  
+
   #howto-table td {
     width: 50%;
   }
-  
+
   .cursor-placement-01 {
     top: 25% !important;
     left: 78%;
@@ -748,7 +780,7 @@ h5 {
     top: 45% !important;
     left: 50%;
   }
-  
+
   .how-section-btncollab {
     top: 32% !important;
   }
@@ -760,7 +792,7 @@ h5 {
   .how-section-dockplacement {
     top: 28% !important;
   }
-  
+
   .how-section-imganim-01 {
     top: 46% !important;
   }
@@ -772,7 +804,7 @@ h5 {
   .how-section-imganim-03 {
     top: 40% !important;
   }
-  
+
   .howto-animation-01 p.smtextright {
     width: auto;
     float: none;
@@ -787,7 +819,7 @@ h5 {
     width: auto;
     float: none;
   }
-  
+
   .large {
     font-size: 48px;
     line-height: 48px;
@@ -803,12 +835,12 @@ h5 {
     font-size: 28px;
     line-height: 30px;
   }
-  
+
   #main-section h3 {
     font-size: 24px;
     line-height: 26px;
   }
-  
+
   #main-section p {
     font-size: 14px;
     line-height: 26px;
@@ -883,29 +915,29 @@ h5 {
     top: 25%;
     left: 50%;
   }
-  
+
   #footer .col-xs-12 {
     padding-top: 0px;
     padding-bottom: 0px;
   }
-  
+
   #footer a {
     font-size: 11px;
   }
-  
+
   #footer a img {
     width: 60px;
     height: 10px;
   }
-  
+
   #main-section #examples .ex-description {
     min-height: 0px;
   }
-  
+
   #main-section #examples .ex-title {
     min-height: 0px;
   }
-  
+
   #tryitout pre {
     margin-top: -30px;
   }
@@ -914,19 +946,19 @@ h5 {
 
 /* Smaller devices (tablets, 480px and up) */
 @media (min-width: 480px) {
-  
+
   #features .media > .pull-left {
     margin-top: 10px;
   }
-  
+
   #tryitout pre {
     margin-top: -26px;
   }
-  
+
   #howto-table td {
     width: 50%;
   }
-  
+
   .howto-animation-01 p.smtextright {
     width: auto;
     float: none;
@@ -941,7 +973,7 @@ h5 {
     width: auto;
     float: none;
   }
-  
+
   .large {
     font-size: 48px;
     line-height: 48px;
@@ -976,16 +1008,16 @@ h5 {
   a#tabzilla {
     display: inherit;
   }
-  
+
   #footer a img {
     width: 100px;
     height: 17px;
   }
-  
+
   #main-section #examples .ex-description {
     min-height: 0px;
   }
-  
+
   #main-section img.why-section {
     width: 30%;
     height: 30%;
@@ -996,15 +1028,15 @@ h5 {
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-  
+
   #features li.media {
     min-height: 140px;
   }
-  
+
   #tryitout pre {
     margin-top: 50px;
   }
-  
+
   .large {
     font-size: 72px;
     line-height: 100%;
@@ -1044,25 +1076,25 @@ h5 {
   a#tabzilla {
     display: inherit;
   }
-  
+
   #footer a img {
     width: 141px;
     height: 24px;
   }
-  
+
   #main-section #examples .ex-description {
-    min-height: 60px;
+    min-height: 81px;
   }
-  
+
 }
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-  
+
   #features li.media {
     min-height: 100px;
   }
-  
+
   .howto-animation-01 p.smtextright {
     width: 60%;
     float: right;
@@ -1077,7 +1109,7 @@ h5 {
     width: 60%;
     float: right;
   }
-  
+
   .large {
     font-size: 72px;
     line-height: 100%;
@@ -1120,24 +1152,24 @@ h5 {
   #marketing-video #frame-video {
     padding-top: 6px;
   }
-  
+
   #main-section #examples .ex-description {
-    min-height: 31px;
+    min-height: 54px;
   }
 
 }
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-  
+
   #features li.media {
     min-height: 100px;
   }
-  
+
   #video-area img {
     margin-top: 0%;
   }
-  
+
   .large {
     font-size: 72px;
     line-height: 100%;
@@ -1303,11 +1335,6 @@ h5 {
   }
 }
 
-#source-content ul.sections > li {
-  white-space: normal;
-  margin: 20px 0px;
-}
-
 #source-content ul.sections > li > div.content {
   background: #f5f5f5;
 }
@@ -1407,11 +1434,11 @@ dd {
 }
 
 @media (min-width: 1200px) {
-  
+
   #markdownpages h1 {
    font-weight: normal;
   }
-  
+
   #sourcecode h1 {
    font-weight: normal;
   }
@@ -1426,6 +1453,7 @@ dd {
 }
 
 @media (min-width: 992px) {
+
   .affix, .affix-bottom {
     width: 213px;
   }
@@ -1438,7 +1466,12 @@ dd {
 }
 
 @media (min-width: 768px) {
-  
+
+  #sketchapp a.tjs-button {
+    float: right !important;
+    margin-bottom: 20px;
+  }
+
   .affix {
     position: static;
   }
@@ -1448,12 +1481,18 @@ dd {
 }
 
 @media (min-width: 480px) {
+
+  #sketchapp a.tjs-button {
+    float: right !important;
+    margin-bottom: 20px;
+  }
+
   #sourcecode h1 {
-   font-size: 48px; 
+   font-size: 48px;
    line-height: 52px;
   }
   #markdownpages h1 {
-   font-size: 48px; 
+   font-size: 48px;
   }
   .affix {
     position: static;
@@ -1464,17 +1503,22 @@ dd {
 }
 
 @media (max-width: 480px) {
-  
+
+  #sketchapp a.tjs-button {
+    float: left !important;
+    margin-bottom: 20px;
+  }
+
   #sourcecode h1 {
-   font-size: 48px; 
+   font-size: 48px;
    line-height: 52px;
   }
-  
+
   #markdownpages h1 {
-   font-size: 48px; 
+   font-size: 48px;
    line-height: 52px;
   }
-  
+
   .affix {
     position: static;
   }
